@@ -1,0 +1,598 @@
+/* #root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+} */
+
+
+.bg {
+  /* background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4i5C4x9fWMWz-kDHNlI09SK04_QGrZs0Wsg&s"); */
+  background-size: cover;
+  height: 100vh;
+  background-repeat: no-repeat;
+  background-position: center;
+
+
+
+}
+/* *{
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+} */
+#side{
+  background-color: rgb(255, 255, 255);
+
+
+}
+#side:hover{
+  background-color: rgb(255, 255, 255);
+  cursor: pointer;
+}
+.sidebar {
+  min-height: 100vh;
+}
+
+.content {
+  background-color: #f0f7ff;
+}
+
+.sidebar-toggle {
+  cursor: pointer;
+  font-size: 1.5rem;
+}
+
+.sidebar .list-unstyled {
+  margin-top: 20px;
+}
+#logo{
+  font-size: 30px;
+}
+
+li {
+  padding: 8px;
+}
+
+li:hover {
+  /* background-color: rgb(125, 125, 125); */
+  transition: 1s;
+  border-radius: 2px;
+}
+
+
+
+
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.task-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 18px;
+  text-align: left;
+}
+
+.task-table th,
+.task-table td {
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+}
+
+.task-table th {
+  background-color: #f4f4f4;
+}
+
+@media (max-width: 768px) {
+
+  .task-table th,
+  .task-table td {
+    padding: 8px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 576px) {
+  .task-table {
+    font-size: 12px;
+  }
+
+  .task-table th,
+  .task-table td {
+    padding: 6px;
+  }
+}
+hr{
+  color: white;
+
+}
+
+.sidebar{
+  background-color: #ffffff;
+  transition: 1s;
+}
+/* /////////////////////////// */
+/* For Background, Padding, and Aesthetic Touch */
+.project-container {
+  background-color: #f8f9fa;
+}
+
+.project-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+}
+
+@media (max-width: 768px) {
+  .project-title {
+    font-size: 1.8rem;
+  }
+
+  table {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .project-title {
+    font-size: 1.5rem;
+  }
+
+  table {
+    font-size: 0.8rem;
+  }
+}
+
+.bg-white {
+  background-color: white !important;
+}
+
+.shadow-sm {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.bg-success {
+  background-color: #28a745 !important;
+}
+
+.bg-warning {
+  background-color: #ffc107 !important;
+}
+
+.bg-secondary {
+  background-color: #6c757d !important;
+}
+
+.text-white {
+  color: white !important;
+}
+
+.text-dark {
+  color: black !important;
+}
+.position-absolute {
+  position: absolute;
+}
+
+.object-fit-cover {
+  object-fit: cover; /* Ensures the image covers the entire area */
+}
+
+.z-index-2 {
+  z-index: 2; /* Ensures the form is above the background */
+}
+
+/* General form background on larger devices */
+.mobile-transparent {
+  background-color: white; /* default background */
+}
+
+/* Mobile-specific styles */
+@media (max-width: 768px) {
+  .mobile-transparent {
+    letter-spacing: 1px;
+    background-color: rgba(255, 255, 255, 0.7); /* white with opacity */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3); /* optional shadow for better contrast */
+  }
+}
+
+/* Main chatbox layout */
+.chatbox {
+  display: flex;
+  height: 80vh;
+  width: 100%;
+  border: 1px solid #ddd;
+  background-color: #f5f5f5;
+}
+
+/* Sidebar for displaying users */
+.sidebars {
+  flex: 1;
+  background-color: #2c3e50;
+  color: white;
+  padding: 20px;
+  max-width: 250px;
+  overflow-y: auto;
+}
+
+.sidebars h3 {
+  margin: 0;
+  font-size: 24px;
+  color: #ecf0f1;
+}
+
+.sidebars ul {
+  list-style: none;
+  padding: 0;
+  margin-top: 20px;
+}
+
+.sidebars ul li {
+  padding: 10px;
+  cursor: pointer;
+  background-color: #f3f3f3;
+  margin-bottom: 5px;
+  transition: background-color 0.3s;
+}
+
+.sidebars ul li:hover, .sidebars ul li.selected {
+  background-color: #fafafa;
+}
+
+.sidebars p {
+  color: #ecf0f1;
+  text-align: center;
+}
+
+/* Main chat window */
+.chat-window {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  padding: 15px;
+  border-left: 1px solid #ddd;
+}
+
+.chat-header {
+  padding: 10px 15px;
+  border-bottom: 1px solid #ddd;
+}
+
+.chat-header h4 {
+  margin: 0;
+  font-size: 18px;
+  color: #2c3e50;
+}
+
+/* Chat body */
+.chat-body {
+  flex-grow: 1;
+  padding: 10px 15px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-message {
+  max-width: 100%;
+  margin-bottom: 15px;
+}
+
+.chat-message p {
+  margin: 0;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #e7e7e7;
+}
+
+.chat-message.sender p {
+  background-color:#69a4d1;
+  color: white;
+}
+
+.chat-message.receiver p {
+  background-color:#eaeaea;
+  color: #000000;
+}
+.timestamp {
+  font-size: 12px;
+  color: gray;
+  margin-top: 5px;
+}
+
+.chat-footer {
+  display: flex;
+  padding: 10px;
+  border-top: 1px solid #ddd;
+  background-color: #ecf0f1;
+}
+
+.chat-footer input {
+  flex-grow: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+
+.chat-footer button {
+  padding: 10px 15px;
+  background-color: #34db91;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.chat-footer button:hover {
+  background-color: #2980b9;
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 768px) {
+  .chatbox {
+      flex-direction: column;
+  }
+
+  .sidebars {
+      max-width: 100%;
+      padding: 10px;
+  }
+
+  .chat-window {
+      padding: 10px;
+  }
+}
+
+.position-relative {
+  position: relative;
+}
+
+.edit-icon {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  top:65px;
+  left: 66px;
+  /* mix-blend-mode: darken; */
+  background-color: rgb(255, 255, 255); /* Optional: a background color to make it stand out */
+  border-radius: 50%;
+  padding: 1px;
+  font-size: 1.6rem;
+  transform: translate(50%, 50%); /* Adjust to make it align well */
+}
+
+.navigation ul li:hover{
+  background-color: white;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  transition: 0s;
+  color: black;
+}
+/* Target active or hovered list items */
+.navigation ul li:not(:first-child).active::before,
+.navigation ul li:not(:first-child):hover::before {
+  content: '';
+  position: absolute;
+  top: -20px;
+  right: 0px;
+  width: 20px;
+  height: 20px;
+  background: transparent;
+  border-bottom-right-radius: 20px;
+  box-shadow: 7.5px 7.5px 0 7.5px #fff;
+}
+
+.navigation ul li:not(:first-child).active::after,
+.navigation ul li:not(:first-child):hover::after {
+  content: '';
+  position: absolute;
+  bottom: -20px;
+  right: 0px;
+  width: 20px;
+  height: 20px;
+  background: transparent;
+  border-top-right-radius: 20px;
+  box-shadow: 7.5px -7.5px 0 7.5px #fff;
+}
+
+/* Adjust styles for active background */
+.navigation ul li.active {
+  background-color: #f8f9fa; /* Apply a background color for active state */
+  position: relative;
+}
+
+/* .navigation ul li:nth-child(1){
+    top: 20px;
+    margin-bottom: ;
+} */
+.navigation ul li{
+  position: relative;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  width: 100%;
+  /* color: black; */
+}
+.navigation ul {
+  position: absolute;
+  top: 50;
+  left: 0;
+  width: 100%;
+}.facebook-login-btn {
+  background: none; /* Remove button background */
+  border: none; /* Remove border */
+  padding: -6px; 
+  display: inline-block;
+  font-size: 15px; /* Adjust the size for larger screens */
+  color: #3d3d3d; /* Facebook's blue color */
+  cursor: pointer;
+  border: 1px solid rgb(233, 233, 233);
+  padding:6px 10px;
+  border-radius: 3px;
+  font-weight: 100;
+  /* letter-spacing: 0px; */
+ font-family:"Google Sans", arial, sans-serif;
+  background-color: #ffffff;
+}
+
+/* Make the icon responsive */
+.facebook-login-btn i {
+  font-size: 18px; /* Adjust the size for larger screens */
+  color: #5583ff;
+  font-weight: 100;
+  padding: -12px 20px;
+  margin: 5px 9px;
+}
+
+@media (max-width: 768px) {
+  .facebook-login-btn i {
+    font-size: 20px; /* Smaller size for tablets */
+  padding: -12px 20px;
+
+  }
+}
+
+@media (max-width: 576px) {
+  .facebook-login-btn i {
+    font-size: 18px; /* Even smaller for mobile screens */
+  }
+}
+
+
+  /* * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    background: linear-gradient(135deg, #71b7e6, #9b59b6);
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: white;
+  } */
+  
+  .app {
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  }
+  
+  .weather-container {
+    width: 300px;
+  }
+  
+  h1 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+  }
+  
+  .search {
+    display: flex;
+    margin-bottom: 20px;
+  }
+  
+  input {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 10px 0 0 10px;
+    font-size: 1rem;
+    outline: none;
+  }
+  
+  button {
+    padding: 10px;
+    background-color: #f9f9f9;
+    border: none;
+    color: white;
+    border-radius: 0 10px 10px 0;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color:#f9f9f9;
+  }
+  
+  .weather-info {
+    margin-top: 20px;
+    background-color: rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 0.5s ease-in-out;
+  }
+  
+  .weather-icon {
+    font-size: 4rem;
+    margin-bottom: 10px;
+  }
+  
+  h2 {
+    font-size: 1.5rem;
+  }
+  
+  p {
+    font-size: 1.2rem;
+    margin: 5px 0;
+  }
+  
+  .error {
+    color: #e74c3c;
+    margin-top: 20px;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  

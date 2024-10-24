@@ -1,0 +1,75 @@
+.sidebars {
+    width: 100%;
+    max-width: 300px;
+    background-color: #ffffff;
+    padding: 15px;
+    border-radius: 10px;
+}
+
+.con {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: black;
+}
+
+.search-bar {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.search-icon {
+    margin-right: 5px;
+    cursor: pointer;
+    color: black;
+}
+
+input[type="text"] {
+    flex: 1;
+    padding: 8px;
+    border: none;
+    border-radius: 4px;
+}
+
+input[type="text"]:focus {
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 128, 255, 0.5);
+}
+
+.ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    overflow-y: auto;
+    max-height: 100%;
+    border-radius: 4px;
+}
+
+li {
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+li.selected {
+    background-color: #34495e;
+}
+.chat-message.sender {
+    /* background-color: #d1f7d6; Light green for sent messages */
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    max-width: 70%; /* Ensure message width is not too large */
+    margin-left: auto; /* Align message to the right */
+}
+
+.chat-message.receiver {
+    /* background-color: #d1f7d6; Light green for sent messages */
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    max-width: 70%; /* Ensure message width is not too large */
+    margin-right: auto; /* Align message to the right */
+
+}
