@@ -237,7 +237,7 @@ function Dashboard() {
       <Row>
         {/* Sidebar */}
         {isSidebarOpen && (
-          <Col xs={isSmallScreen ? 12 : 2} id='side' style={{ minHeight: "100vh", maxWidth: "300px", position: "fixed",background:"rgb(26 85 82)" }} className="text-black">
+          <Col xs={isSmallScreen ? 12 : 2} id='side' style={{ minHeight: "100vh", maxWidth: "300px", position: "fixed",background:"black" }} className="text-black">
             {/* <div className='shadow px-2 vh-100'> */}
             <img src='https://kitecareer.com/jobwebsite/static/media/logo.f8936f92b6a6f97421de.png' className='py-2' width={180} alt="" />
             <hr className='text-info' />
@@ -260,7 +260,7 @@ function Dashboard() {
                   </li>
 
                   <li className={`mt-3 ${activeLink === 'user' ? 'bg-white active' : ''}`} onClick={() => handleLinkClick('user')}>
-                    <Link to="/Dashbord/user" style={{ textDecoration: 'none', fontSize: '16px' }}>
+                    <Link to="/Dashbord/user"  style={{ textDecoration: 'none', fontSize: '16px' }}>
                       <FontAwesomeIcon icon={faUser} className={`me-2 ${activeLink === 'user' ? 'text-danger' : ''}`} />
                       <span className={`me-2 ${activeLink === 'user' ? 'text-warning' : ''}`}>User</span>
                     </Link>
