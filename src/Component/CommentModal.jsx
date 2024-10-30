@@ -8,7 +8,7 @@ const CommentModal = ({ show, handleClose, taskId }) => {
   // Handle posting a new comment
   const postComment = async () => {
     try {
-      await Axios.post(`/tasks/${taskId}/comments/`, {
+      await Axios.post(`/task/${taskId}/comment/`, {
         comment: newComment,
       });
       setNewComment(''); // Clear the comment input
