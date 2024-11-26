@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import Axios from '../Axios/Axios';
-import { Container, Row, Col, Card, Button, Modal, Form } from 'react-bootstrap';
+import { Container, Row, Col, Card, Button, Modal, Form, Dropdown } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser, faCalendarAlt } from '@fortawesome/free-solid-svg-icons';
+// import { faUser, faCalendarAlt } from '@fortawesome/free-solid-svg-icons';
 import "../App.css";
 import { ScaleLoader } from 'react-spinners';
 import Select from 'react-select';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; // Import the CSS for styling
+import { faCalendarAlt, faUser, faEllipsisV, faPencilAlt, faTrash } from '@fortawesome/free-solid-svg-icons';
 
 function Projects() {
   const [projects, setProjects] = useState([]);
@@ -346,23 +347,23 @@ function Projects() {
         pauseOnFocusLoss
         theme="light" // or "dark", based on your preference
       />
-      <Row>
+      {/* <Row>
         {projects.map((project) => (
           <Col key={project.id} xs={12} sm={6} md={4} lg={4} className="mb-4">
-            <Card className="project-card border-warning h-100">
+            <Card className="project-card shadow border h-100">
               <Card.Body>
-                <Card.Title>{project.name}</Card.Title>
-                <Card.Text>{project.description}</Card.Text>
+                <Card.Title className='fs-5 text-info'>{project.name}</Card.Title>
+                <Card.Text style={{fontSize:"15px",color:"gray"}}>{project.description}</Card.Text>
                 <hr />
-                <p>
+                <p  style={{fontSize:"15px",lineHeight:"30px"}}>
                   <FontAwesomeIcon icon={faCalendarAlt} className="me-2" />
                   Start: {new Date(project.start_date).toLocaleDateString()}
                 </p>
-                <p>
+                <p  style={{fontSize:"15px",lineHeight:"35px"}}>
                   <FontAwesomeIcon icon={faCalendarAlt} className="me-2" />
                   End: {new Date(project.end_date).toLocaleDateString()}
                 </p>
-                <p>
+                <p  style={{fontSize:"15px",lineHeight:"35px"}}>
                   <FontAwesomeIcon icon={faUser} className="me-2" />
                   Assigned Users: {project.assigned_users.length ? project.assigned_users.map(user => user.username).join(', ') : 'None'}
                 </p>
@@ -373,8 +374,49 @@ function Projects() {
             </Card>
           </Col>
         ))}
-      </Row>
+      </Row> */}
+ <Row>
+      {projects.map((project) => (
+        <Col key={project.id} xs={12} sm={6} md={4} lg={4} className="mb-4">
+          <div className="project-section shadow-sm p-4 bg-white position-relative h-100">
+            {/* Three-dot menu */}
+            <Dropdown className="position-absolute top-0 end-0 m-3">
+              <Dropdown.Toggle variant="light" className="text-muted border-0 p-1">
+                <FontAwesomeIcon icon={faEllipsisV} />
+              </Dropdown.Toggle>
 
+              <Dropdown.Menu>
+                <Dropdown.Item onClick={() => handleEditClick(project)}>
+                  <FontAwesomeIcon icon={faPencilAlt} className="text-warning me-2" />
+                  Edit
+                </Dropdown.Item>
+                <Dropdown.Item onClick={() => handleDelete(project.id)}>
+                  <FontAwesomeIcon icon={faTrash} className="text-danger me-2" />
+                  Delete
+                </Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+
+            {/* Project Information */}
+            <h5 className="text-info">{project.name}</h5>
+            <p style={{ fontSize: "15px", color: "gray" }}>{project.description}</p>
+            <hr />
+            <p style={{ fontSize: "15px", lineHeight: "30px" }}>
+              <FontAwesomeIcon icon={faCalendarAlt} className="me-2" />
+              Start: {new Date(project.start_date).toLocaleDateString()}
+            </p>
+            <p style={{ fontSize: "15px", lineHeight: "30px" }}>
+              <FontAwesomeIcon icon={faCalendarAlt} className="me-2" />
+              End: {new Date(project.end_date).toLocaleDateString()}
+            </p>
+            <p style={{ fontSize: "15px", lineHeight: "30px" }}>
+              <FontAwesomeIcon icon={faUser} className="me-2" />
+              Assigned Users: {project.assigned_users.length ? project.assigned_users.map(user => user.username).join(', ') : 'None'}
+            </p>
+          </div>
+        </Col>
+      ))}
+    </Row>
       {/* Modal for adding a project */}
       <Modal show={showAddModal} onHide={handleCloseAddModal} size="lg">
         <Modal.Header closeButton>

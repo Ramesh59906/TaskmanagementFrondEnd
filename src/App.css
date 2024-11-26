@@ -1,64 +1,17 @@
-/* #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-}
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+*{
+  font-family:"Google Sans", arial, sans-serif;
+  font-size: 15px;
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
-} */
-
-
 .bg {
-  /* background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4i5C4x9fWMWz-kDHNlI09SK04_QGrZs0Wsg&s"); */
   background-size: cover;
   height: 100vh;
   background-repeat: no-repeat;
   background-position: center;
-
-
-
 }
-/* *{
-  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-} */
+
 #side{
   background-color: rgb(255, 255, 255);
-
-
 }
 #side:hover{
   background-color: rgb(255, 255, 255);
@@ -148,8 +101,7 @@ hr{
   background-color: #ffffff;
   transition: 1s;
 }
-/* /////////////////////////// */
-/* For Background, Padding, and Aesthetic Touch */
+
 .project-container {
   background-color: #f8f9fa;
 }
@@ -495,22 +447,6 @@ hr{
   }
 }
 
-
-  /* * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
-  body {
-    background: linear-gradient(135deg, #71b7e6, #9b59b6);
-    font-family: 'Arial', sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    color: white;
-  } */
   
   .app {
     text-align: center;
@@ -594,5 +530,28 @@ hr{
       opacity: 1;
       transform: translateY(0);
     }
+  }
+  
+  .project-display {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    position: relative;
+    overflow: hidden;
+    padding: 20px;
+    border-radius: 12px;
+    background-color: #ffffff;
+  }
+  .project-display:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+  }
+  .project-display h5 {
+    color: #17a2b8; /* Custom info color */
+  }
+  .project-display .text-secondary {
+    font-size: 14px;
+    color: #6c757d; /* Subtle gray color for dates and details */
+  }
+  .action-icons i {
+    cursor: pointer;
   }
   

@@ -213,7 +213,9 @@ if (!showData) {
                             className="form-control"
                           />
                         ) : (
-                          user.username || "null"
+                          // user.username || "null"
+                          user.username  ?  user.username.charAt(0).toUpperCase() + user.username.slice(1) : "Null"
+
                         )}
                       </td>
                       <td className='py-3  text-success'>
@@ -247,12 +249,12 @@ if (!showData) {
                           <input
                             type="text"
                             name="role"
-                            value={editedData.role}
+                            value={editedData.role.charAt(0).toUpperCase() + editedData.role.slice(1)}
                             onChange={handleInputChange}
                             className="form-control"
                           />
                         ) : (
-                          user.role || "null"
+                         user.role ? user.role.charAt(0).toUpperCase() + user.role.slice(1) : "Null"
                         )}
                       </td>
                       <td className='py-2 text-muted'>
@@ -265,7 +267,7 @@ if (!showData) {
                             className="form-control"
                           />
                         ) : (
-                          user.gender || "null"
+                        user.gender ? user.gender.charAt(0).toUpperCase() + user.gender.slice(1) : "Null"
                         )}
                        </td>
                        <td className='py-2 text-muted'>

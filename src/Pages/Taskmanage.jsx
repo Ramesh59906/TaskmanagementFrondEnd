@@ -1,285 +1,4 @@
 
-// import React, { useState, useEffect } from 'react';
-// import { Table, Button, Modal, Form } from 'react-bootstrap';
-// import Select from 'react-select'; // Make sure to install react-select
-// import Axios from '../Axios/Axios';
-// import { ScaleLoader } from 'react-spinners';
-// import { toast } from 'react-toastify';
-// import Swal from 'sweetalert2';
-// const Taskmanage = () => {
-//     const [tasks, setTasks] = useState([]);
-//     const [projects, setProjects] = useState([]);
-//     const [usernames, setUsernames] = useState([]); // New state for users
-//     const [loading, setLoading] = useState(true);
-//     const [error, setError] = useState(null);
-//     const [showModal, setShowModal] = useState(false);
-//     const [newTask, setNewTask] = useState({
-//         title: '',
-//         description: '',
-//         assigned_to: [],
-//         priority: 'medium',
-//         due_date: '',
-//         project: '',
-//         completed_at: '',
-//     });
-
-//     useEffect(() => {
-//         const fetchTasksAndProjects = async () => {
-//             try {
-//                 const [tasksResponse, projectsResponse, usersResponse] = await Promise.all([
-//                     Axios.get('tasks/'),
-//                     Axios.get('projects/'),
-//                     Axios.get('users/') // Fetch users for assignment
-//                 ]);
-//                 setTasks(tasksResponse.data.tasks);
-//                 setProjects(projectsResponse.data.projects);
-//                 setUsernames(usersResponse.data.users); // Set users in state
-//                 setLoading(false);
-//             } catch (err) {
-//                 setError('Error fetching data');
-//                 setLoading(false);
-//             }
-//         };
-
-//         fetchTasksAndProjects();
-//     }, []);
-
-//     const handleInputChange = (e) => {
-//         setNewTask({
-//             ...newTask,
-//             [e.target.name]: e.target.value,
-//         });
-//     };
-
-
-//     const handleAssignedUsersChange = (selectedUserId) => {
-//         setNewTask({
-//             ...newTask,
-//             assigned_to: selectedUserId,
-//         });
-//     };
-
-
-
-
-
-
-// const handleSubmit = async (e) => {
-//     e.preventDefault();
-
-//     try {
-//         const sanitizedTask = {
-//             ...newTask,
-//             assigned_to: newTask.assigned_to, // Ensure this is a valid ObjectId
-//         };
-
-//         // Create the task and check if the response contains an error
-//         const createResponse = await Axios.post('tasks/create/', sanitizedTask);
-//         if (createResponse.data.error) {
-//             // Show warning using swal if there's an error in the POST response
-//             Swal.fire({
-//                 icon: 'warning',
-//                 title: 'Oops...',
-//                 text: createResponse.data.error, // e.g., "User is not assigned to this project"
-//             });
-//             return; // Stop further execution if there's an error
-//         }
-
-//         // Fetch updated tasks
-//         const fetchResponse = await Axios.get('tasks/');
-//         const { error, tasks } = fetchResponse.data;
-
-//         if (error) {
-//             // Show warning if there's an error in fetching tasks
-//             Swal.fire({
-//                 icon: 'warning',
-//                 title: 'Oops...',
-//                 text: error, // e.g., an error while fetching tasks
-//             });
-//         } else {
-//             setTasks(tasks); // Update task list if successful
-//             // Show success message using swal
-//             Swal.fire({
-//                 icon: 'success',
-//                 title: 'Success!',
-//                 text: 'Task created successfully!',
-//             });
-//         }
-
-//         setShowModal(false); // Close modal after task creation
-        
-//         // Reset new task fields
-//         setNewTask({
-//             title: '',
-//             description: '',
-//             assigned_to: '',
-//             priority: 'medium',
-//             due_date: '',
-//             project: '',
-//             completed_at: ''
-//         });
-//     } catch (err) {
-//         // Catch critical errors such as network or server issues
-//         console.error('Error creating task:', err);
-//         // Show error message using swal for critical errors
-//         Swal.fire({
-//             icon: 'error',
-//             title: 'Error',
-//             text: 'Error creating task. Please try again.',
-//         });
-//     }
-// };
-
-    
-
-
-//     if (loading) {
-//         return (
-//             <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh" }}>
-//                 <ScaleLoader color="#008287" loading={loading} size={200} />
-//             </div>
-//         );
-//     }
-
-//     return (
-//         <div className="container mt-4 bg-white shadow p-md-4 mb-5 rounded">
-//             <div style={{ display: "flex", justifyContent: "space-between" }}>
-//                 <h2>Task Details</h2>
-//                 <Button variant="primary" onClick={() => setShowModal(true)}>Create Task</Button>
-//             </div>
-//             <hr className='text-black' />
-
-//             {error ? (
-//                 <p>{error}</p>
-//             ) : (
-//                 <Table  bordered hover responsive className="mt-3 table table-hover table-border table-hover p-3 mb-5 bg-white rounded">
-//                     <thead>
-//                         <tr>
-//                             <th>Title</th>
-//                             <th>Description</th>
-//                             <th>Assigned To</th>
-//                             <th>Priority</th>
-//                             <th>Status</th>
-//                             <th>Due Date</th>
-//                             <th>Created At</th>
-//                             <th>Updated At</th>
-//                         </tr>
-//                     </thead>
-//                     <tbody>
-//                         {tasks.length > 0 ? (
-//                             tasks.map((task) => (
-//                                 <tr key={task.id}>
-//                                     <td>{task.title}</td>
-//                                     <td>{task.description}</td>
-//                                     {/* <td>
-//   Assigned To: {task.assigned_to && task.assigned_to.username ? task.assigned_to.username : 'None'}
-// </td> */}
-//                                     {/* <td>
-//   {task.assigned_to.length ? task.assigned_to.map(user => user.username).join(', ') : 'None'}
-// </td> */}
-//                                     <td>{task.assigned_to ? task.assigned_to.username : 'None'}</td>
-
-//                                     <td>{task.priority}</td>
-//                                     <td>{task.status}</td>
-//                                     <td>{task.due_date}</td>
-//                                     <td>{new Date(task.created_at).toLocaleString()}</td>
-//                                     <td>{new Date(task.updated_at).toLocaleString()}</td>
-//                                 </tr>
-//                             ))
-//                         ) : (
-//                             <tr>
-//                                 <td colSpan="8" className="text-center">No tasks available</td>
-//                             </tr>
-//                         )}
-//                     </tbody>
-//                 </Table>
-//             )}
-
-//             {/* Modal for creating a new task */}
-//             <Modal show={showModal} onHide={() => setShowModal(false)}>
-//                 <Modal.Header closeButton>
-//                     <Modal.Title>Create New Task</Modal.Title>
-//                 </Modal.Header>
-//                 <Modal.Body>
-//                     <Form onSubmit={handleSubmit}>
-//                         <Form.Group className="mb-3" controlId="taskTitle">
-//                             <Form.Label>Title</Form.Label>
-//                             <Form.Control
-//                                 type="text"
-//                                 name="title"
-//                                 value={newTask.title}
-//                                 onChange={handleInputChange}
-//                                 required
-//                             />
-//                         </Form.Group>
-//                         <Form.Group className="mb-3" controlId="taskDescription">
-//                             <Form.Label>Description</Form.Label>
-//                             <Form.Control
-//                                 as="textarea"
-//                                 name="description"
-//                                 value={newTask.description}
-//                                 onChange={handleInputChange}
-//                                 required
-//                             />
-//                         </Form.Group>
-//                         <Form.Group className="mb-3" controlId="taskAssignedTo">
-//                             <Form.Label>Assigned To</Form.Label>
-//                             <Select
-//                                 options={usernames.map(user => ({ value: user.id, label: user.username }))}
-//                                 onChange={selectedOption => handleAssignedUsersChange(selectedOption ? selectedOption.value : '')}  // Handle single user selection
-//                                 value={usernames.find(user => user.id === newTask.assigned_to) ? { value: newTask.assigned_to, label: usernames.find(user => user.id === newTask.assigned_to).username } : null}  // Set the correct user object
-//                                 isClearable  // Allows clearing the selection
-//                             />
-//                         </Form.Group>
-
-//                         <Form.Group className="mb-3" controlId="taskPriority">
-//                             <Form.Label>Priority</Form.Label>
-//                             <Form.Select
-//                                 name="priority"
-//                                 value={newTask.priority}
-//                                 onChange={handleInputChange}
-//                             >
-//                                 <option value="low">Low</option>
-//                                 <option value="medium">Medium</option>
-//                                 <option value="high">High</option>
-//                             </Form.Select>
-//                         </Form.Group>
-//                         <Form.Group className="mb-3" controlId="taskProject">
-//                             <Form.Label>Project</Form.Label>
-//                             <Form.Select
-//                                 name="project"
-//                                 value={newTask.project}
-//                                 onChange={handleInputChange}
-//                                 required
-//                             >
-//                                 <option value="">Select Project</option>
-//                                 {projects.map((project) => (
-//                                     <option key={project.id} value={project.id}>
-//                                         {project.name}
-//                                     </option>
-//                                 ))}
-//                             </Form.Select>
-//                         </Form.Group>
-//                         <Form.Group className="mb-3" controlId="taskDueDate">
-//                             <Form.Label>Due Date</Form.Label>
-//                             <Form.Control
-//                                 type="date"
-//                                 name="due_date"
-//                                 value={newTask.due_date}
-//                                 onChange={handleInputChange}
-//                                 required
-//                             />
-//                         </Form.Group>
-//                         <Button variant="primary" type="submit">Add Task</Button>
-//                     </Form>
-//                 </Modal.Body>
-//             </Modal>
-//         </div>
-//     );
-// };
-
-// export default Taskmanage;
-
 import React, { useState, useEffect } from 'react';
 import { Table, Button, Modal, Form } from 'react-bootstrap';
 import Select from 'react-select'; // Make sure to install react-select
@@ -289,8 +8,9 @@ import { toast } from 'react-toastify';
 import Swal from 'sweetalert2';
 import { FaEdit, FaTrash } from 'react-icons/fa'; // Importing icons
 import { useNavigate } from 'react-router-dom';
-
+import * as XLSX from 'xlsx';
 const Taskmanage = () => {
+
     const [tasks, setTasks] = useState([]);
     const [projects, setProjects] = useState([]);
     const [usernames, setUsernames] = useState([]); // New state for users
@@ -308,6 +28,82 @@ const Taskmanage = () => {
         project: '',
     });
 
+    const handleExport = async () => {
+        try {
+          // Fetch JSON data from the API
+          const response = await Axios.post('generate_task_report/');
+          const reportData = response.data.report;
+      
+          // Flatten the data into arrays for each task category
+          const completedTasks = reportData.completed_tasks.map(task => ({
+            ...task,
+            status: 'Completed'
+          }));
+      
+          const inProgressTasks = reportData.in_progress_tasks.map(task => ({
+            ...task,
+            status: 'In Progress'
+          }));
+      
+          const overdueTasks = reportData.overdue_tasks.map(task => ({
+            ...task,
+            status: 'Overdue'
+          }));
+      
+          const pendingTasks = reportData.pending_tasks.map(task => ({
+            ...task,
+            status: 'Pending'
+          }));
+      
+          // Initialize a new workbook
+          const workbook = XLSX.utils.book_new();
+      
+          // Create summary data
+          const summaryData = [
+            { metric: "Total Tasks", value: reportData.total_tasks },
+            { metric: "Completed Tasks Count", value: reportData.completed_tasks_count },
+            { metric: "In Progress Tasks Count", value: reportData.in_progress_tasks_count },
+            { metric: "Overdue Tasks Count", value: reportData.overdue_tasks_count },
+            { metric: "Pending Tasks Count", value: reportData.pending_tasks_count },
+            { metric: "Completion Percentage", value: `${reportData.completion_percentage}%` }
+          ];
+      
+          // Add summary sheet
+          const summarySheet = XLSX.utils.json_to_sheet(summaryData);
+          XLSX.utils.book_append_sheet(workbook, summarySheet, "Summary");
+      
+          // Add individual sheets for each task category
+          const completedSheet = XLSX.utils.json_to_sheet(completedTasks);
+          XLSX.utils.book_append_sheet(workbook, completedSheet, "Completed Tasks");
+      
+          const inProgressSheet = XLSX.utils.json_to_sheet(inProgressTasks);
+          XLSX.utils.book_append_sheet(workbook, inProgressSheet, "In Progress Tasks");
+      
+          const overdueSheet = XLSX.utils.json_to_sheet(overdueTasks);
+          XLSX.utils.book_append_sheet(workbook, overdueSheet, "Overdue Tasks");
+      
+          const pendingSheet = XLSX.utils.json_to_sheet(pendingTasks);
+          XLSX.utils.book_append_sheet(workbook, pendingSheet, "Pending Tasks");
+      
+          // Optionally, add a sheet with all tasks combined
+          const allTasks = [
+            ...completedTasks,
+            ...inProgressTasks,
+            ...overdueTasks,
+            ...pendingTasks
+          ];
+          const allTasksSheet = XLSX.utils.json_to_sheet(allTasks);
+          XLSX.utils.book_append_sheet(workbook, allTasksSheet, "All Tasks");
+      
+          // Write the workbook to a file and trigger download
+          XLSX.writeFile(workbook, 'Task_Report.xlsx');
+        } catch (error) {
+          console.error("Error exporting data:", error);
+        }
+      };
+      
+      
+      
     useEffect(() => {
         const fetchTasksAndProjects = async () => {
             try {
@@ -474,8 +270,18 @@ const Taskmanage = () => {
     return (
         <div className="container mt-4 bg-white p-md-4 mb-5 rounded">
             <div style={{ display: "flex", justifyContent: "space-between" }}>
+                <div>
                 <h2>Task Details</h2>
+                </div>
+                <div>
                 <Button variant="primary" onClick={() => setShowModal(true)}>Create Task</Button>
+                <Button variant="secondary" onClick={handleExport} style={{ marginLeft: '10px' }}>
+                    Export
+                </Button>
+                </div>
+
+            
+
             </div>
             <hr className='text-black' />
 

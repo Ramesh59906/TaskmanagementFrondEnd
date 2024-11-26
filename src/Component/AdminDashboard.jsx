@@ -6,6 +6,7 @@ import EmployeeLog from "../EmployeeLog"
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import swal from 'sweetalert'; // Ensure you have imported sweetalert
+import CommentModal from './CommentModal';
 
 const AdminDashboard = () => {
   const [data, setData] = useState({
@@ -18,13 +19,13 @@ const AdminDashboard = () => {
   const [isModalVisible, setModalVisible] = useState(false);  // Control modal visibility
   const [selectedTask, setSelectedTask] = useState(null);
   const [status, setStatus] = useState('');
-  const [isOffcanvasVisible, setOffcanvasVisible] = useState(false);  // Control offcanvas visibility
   const [newComment, setNewComment] = useState(''); // State for new comment
   const [comments, setComments] = useState([]); // State for task comments
   const navigate = useNavigate();
 
 
   const userId = localStorage.getItem('user_id');
+  const userName=localStorage.getItem('username');
 
   useEffect(() => {
     Axios
@@ -41,32 +42,16 @@ const AdminDashboard = () => {
       });
   }, [userId]);
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+  // if (loading) {
+  //   return <div>Loading...</div>;
+  // }
 
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
+  // if (error) {
+  //   return <div>Error: {error}</div>;
+  // }
 
-  const getStatusClass = (status) => {
-    switch (status) {
-      case 'complete':
-        return 'bg-success text-white';
-      case 'in_progress':
-        return 'bg-warning text-dark';
-      case 'pending':
-        return 'bg-secondary text-white';
-      default:
-        return '';
-    }
-  };
 
-  const handleCommentClick = (task) => {
-    setSelectedTask(task);     // Set selected task for commenting
-    fetchComments(task.id); // Fetch comments for the selected task
-    setOffcanvasVisible(true);  // Show offcanvas
-  };
+
   const handleUpdateClick = (task) => {
     setSelectedTask(task);     // Set selected task
     setStatus(task.status);    // Set default status
@@ -102,34 +87,7 @@ const AdminDashboard = () => {
     }
   };
 
-  // // Handle posting a new comment
-  // const postComment = async (e) => {
-  //   e.preventDefault();
 
-  //   try {
-  //     // Change 'comment' to 'content' as per the backend requirement
-  //     await Axios.post(`/task/${selectedTask.id}/comment/`, { content: newComment });
-  //     toast.success("Comment posted successfully!"); // Display success message
-  //     setNewComment(''); // Clear the comment input
-  //     setCommentModalVisible(false); // Close the modal after posting
-  //   } catch (err) {
-  //     console.error('Error posting comment:', err);
-  //     toast.error("Error posting comment."); // Display error message
-  //   }
-  // };
-
-
-  const fetchComments = async (taskId) => {
-    try {
-      const res = await Axios.get(`/task/${taskId}/comments/`); // Fetch comments for the selected task
-      setComments(res.data.comments); // Set the fetched comments in state
-      console.log(res.data);
-
-    } catch (err) {
-      console.error('Error fetching comments:', err);
-      toast.error("Error fetching comments.");
-    }
-  };
 
   const postComment = async (e) => {
     e.preventDefault();
@@ -137,6 +95,8 @@ const AdminDashboard = () => {
     try {
       // Change 'comment' to 'content' as per the backend requirement
       const res = await Axios.post(`/task/${selectedTask.id}/comment/`, { content: newComment });
+      console.log(userName);
+      
       const { message } = res.data;
       // Show success alert using swal
       swal("Success!", message, "success");
@@ -154,7 +114,7 @@ const AdminDashboard = () => {
 
   return (
     <div>
-      <Container>
+      <Container fluid>
         <Row>
           <Col>
             <EmployeeLog />
@@ -162,7 +122,7 @@ const AdminDashboard = () => {
           </Col>
         </Row>
       </Container>
-      <Container className="dashboard-container  py-4 mt-2 rounded">
+      <Container fluid className="dashboard-container  py-4 mt-2 rounded">
         <Row>
           <Col className="text">
             {/* <h1 className="section-title p-1" style={{backgroundColor:"lightblue"}}>Desiner Project details</h1> */}
@@ -170,13 +130,16 @@ const AdminDashboard = () => {
           </Col>
         </Row>
         {/* Projects Section */}
-        <Row>
+        {/* <Row>
           <Col className="text">
             <h1 style={{ backgroundColor: "#f3f3f3" }} className="section-title  h2 p-2">Project Details</h1>
             <hr className="text-dark" />
           </Col>
-        </Row>
-        <Row>
+        </Row> */}
+         {/* <Button style={{ backgroundColor: "#dcdcdc", color: "black" }}> */}
+                       <CommentModal/>
+                      {/* </Button> */}
+        {/* <Row>
           <Col xs={12} className="bg-white p-3 rounded shadow-sm">
             <Table responsive="sm" className="table table-hover table-border table-hover p-3 mb-5 bg-white rounded">
               <thead>
@@ -186,7 +149,7 @@ const AdminDashboard = () => {
                   <th>Description</th>
                   <th>Start Date</th>
                   <th>End Date</th>
-                  {/* <th>Created By</th> */}
+                  <th>Created By</th>
                   <th>Assigned Users</th>
                 </tr>
               </thead>
@@ -198,7 +161,7 @@ const AdminDashboard = () => {
                     <td>{project.description}</td>
                     <td>{project.start_date}</td>
                     <td>{project.end_date}</td>
-                    {/* <td>{project.created_by}</td> */}
+                    <td>{project.created_by}</td>
                     <td>
                       {project.assigned_users.map((user) => (
                         <span key={user.id}>{user.username} </span>
@@ -209,7 +172,7 @@ const AdminDashboard = () => {
               </tbody>
             </Table>
           </Col>
-        </Row>
+        </Row> */}
 
         {/* Tasks Section */}
         <Row className="mt-4">
@@ -224,15 +187,15 @@ const AdminDashboard = () => {
               <thead>
                 <tr>
                   {/* <th>Task ID</th> */}
-                  <th>N/o</th>
-                  <th>Task Name</th>
-                  <th>description</th>
-                  <th>created_at</th>
-                  <th>due_date</th>
-                  <th>priority</th>
-                  <th>Status</th>
-                  <th>completed_at</th>
-                  <th>Action</th>
+                  <th  className='text-muted' style={{fontSize:"14px",fontWeight:"100"}}>N/o</th>
+                  <th className='text-muted' style={{fontSize:"14px",fontWeight:"100"}}>Task Name</th>
+                  <th className='text-muted' style={{fontSize:"14px",fontWeight:"100"}}>description</th>
+                  <th className='text-muted' style={{fontSize:"14px",fontWeight:"100"}}>created_at</th>
+                  <th className='text-muted' style={{fontSize:"14px",fontWeight:"100"}}>due_date</th>
+                  <th className='text-muted' style={{fontSize:"14px",fontWeight:"100"}}>priority</th>
+                  <th className='text-muted' style={{fontSize:"14px",fontWeight:"100"}}>Status</th>
+                  <th className='text-muted' style={{fontSize:"14px",fontWeight:"100"}}>completed_at</th>
+                  <th className='text-muted' style={{fontSize:"14px",fontWeight:"100"}}>Action</th>
                 </tr>
               </thead>
               <tbody>
@@ -250,11 +213,8 @@ const AdminDashboard = () => {
                     <td>{task.status}</td>
                     <td>{task.completed_at ? new Date(task.completed_at).toLocaleDateString() : "N/A"}</td>
                     <td className='d-flex gap-1'>
-                      <Button style={{ backgroundColor: "lightblue", color: "black" }} onClick={() => handleUpdateClick(task)}>
+                      <Button type='button' className='bg-success text-white border' style={{ backgroundColor: "", color: "black" }} onClick={() => handleUpdateClick(task)}>
                         Update
-                      </Button>
-                      <Button style={{ backgroundColor: "#dcdcdc", color: "black" }} onClick={() => handleCommentClick(task)}>
-                        Comment
                       </Button>
                     </td>
                   </tr>
@@ -300,12 +260,12 @@ const AdminDashboard = () => {
             <Table hover responsive="sm" className="table table-hover table-border table-hover p-3 mb-5 bg-white rounded">
               <thead>
                 <tr>
-                  <th>N/o</th>
-                  <th>Task</th>
-                  <th>User</th>
-                  <th>Action</th>
-                  <th>Description</th>
-                  <th>Timestamp</th>
+                  <th className='text-muted' style={{fontSize:"14px",fontWeight:"100"}}>N/o</th>
+                  <th className='text-muted' style={{fontSize:"14px",fontWeight:"100"}}>Task</th>
+                  <th className='text-muted' style={{fontSize:"14px",fontWeight:"100"}}>User</th>
+                  <th className='text-muted' style={{fontSize:"14px",fontWeight:"100"}}>Action</th>
+                  <th className='text-muted' style={{fontSize:"14px",fontWeight:"100"}}>Description</th>
+                  <th className='text-muted' style={{fontSize:"14px",fontWeight:"100"}}>Timestamp</th>
                 </tr>
               </thead>
               <tbody>
@@ -323,93 +283,182 @@ const AdminDashboard = () => {
             </Table>
           </Col>
         </Row>
-        {/* Modal for Posting Comment */}
-        {/* <Offcanvas show={isOffcanvasVisible} onHide={() => setOffcanvasVisible(false)} placement="end">
-          <Offcanvas.Header closeButton>
-            <Modal.Title>Comment on {selectedTask?.title}</Modal.Title>
-            </Offcanvas.Header>
-            <Offcanvas.Body>
-            <Form onSubmit={postComment}>
-              <Form.Group controlId="formNewComment">
-                <Form.Label>New Comment</Form.Label>
-                <Form.Control
-                  as="textarea"
-                  rows={3}
-                  value={newComment}
-                  onChange={(e) => setNewComment(e.target.value)}
-                  placeholder="Type your comment..."
-                />
-              </Form.Group>
-              <Button variant="success" type="submit" className="mt-2">
-                Post Comment
-              </Button>
-            </Form>
-            </Offcanvas.Body>
-            </Offcanvas> */}
-        {/* Offcanvas for Comments */}
-        <Offcanvas show={isOffcanvasVisible} onHide={() => setOffcanvasVisible(false)} placement="end">
-          <Offcanvas.Header closeButton>
-            <Modal.Title>Comments for {selectedTask?.title}</Modal.Title>
-          </Offcanvas.Header>
-          <Offcanvas.Body>
-            <Form onSubmit={postComment}>
-              <Form.Group controlId="formNewComment">
-                <Form.Label>New Comment</Form.Label>
-                <Form.Control
-                  as="textarea"
-                  rows={3}
-                  value={newComment}
-                  onChange={(e) => setNewComment(e.target.value)}
-                  placeholder="Type your comment..."
-                />
-              </Form.Group>
-              <Button variant="success" type="submit" className="mt-2">
-                Post Comment
-              </Button>
-            </Form>
-
-            {/* Display Comments */}
-            {/* <div className="mt-4">
-            <h5>Comments</h5>
-            {comments.length > 0 ? (
-              comments.map((comment, index) => (
-                <div key={index} className="comment mt-3">
-                  <strong>{comment.user.username}</strong>: {comment.content}
-                  <div className="text-muted" style={{ fontSize: '0.85em' }}>
-                    {new Date(comment.timestamp).toLocaleString()}
-                  </div>
-                </div>
-              ))
-            ) : (
-              <p>No comments yet.</p>
-            )}
-          </div> */}
-          <div className="mt-4">
-  <h5>Comments</h5>
-  {/* <hr className='text-info' /> */}
-  {comments.length > 0 ? ( comments.map((item, index) => {
-    return (
-      <div key={index} className="comment mt-3  p-2 rounded" style={{backgroundColor:"#e7f9ff"}}>
-           <div className="text-muted py-2 px-1" style={{ fontSize: '0.85em' }}>
-           <h6 className='text-success'>{item.content}</h6>
-        </div>
-        <div className="text-muted text-end" style={{ fontSize: '0.85em' }}>
-          {new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })} {/* Display the current date */}
-        </div>
-      </div>
-    );
-  })
-):(
-  <p>No comments yet.</p>
-)
-}
-</div>
-
-          </Offcanvas.Body>
-        </Offcanvas>
       </Container>
     </div>
   );
 };
 
 export default AdminDashboard;
+
+// import Axios from '../Axios/Axios';
+// import React, { useEffect, useState } from 'react';
+// import { Container, Table, Row, Col, Button, Form, Modal, Offcanvas } from 'react-bootstrap';
+// import { toast } from 'react-toastify';
+// import { useNavigate } from 'react-router-dom';
+// import swal from 'sweetalert';
+
+// const AdminDashboard = () => {
+//   const [data, setData] = useState({
+//     projects: [],
+//     tasks: [],
+//     activity_logs: [],
+//   });
+//   const [loading, setLoading] = useState(true);
+//   const [error, setError] = useState(null);
+//   const [isModalVisible, setModalVisible] = useState(false);  // Control modal visibility
+//   const [selectedTask, setSelectedTask] = useState(null);
+//   const [selectedProject, setSelectedProject] = useState(null);  // Project selected for comments
+//   const [status, setStatus] = useState('');
+//   const [newComment, setNewComment] = useState(''); // State for new comment
+//   const [comments, setComments] = useState([]); // State for task comments
+//   const [isOffcanvasVisible, setOffcanvasVisible] = useState(false); // Control offcanvas visibility
+//   const navigate = useNavigate();
+
+//   const userId = localStorage.getItem('user_id');
+
+//   useEffect(() => {
+//     Axios
+//       .get(`user/${userId}/details/`)
+//       .then((res) => {
+//         setData(res.data);
+//         setLoading(false);
+//       })
+//       .catch((err) => {
+//         setError(err.message);
+//         setLoading(false);
+//       });
+//   }, [userId]);
+
+//   if (loading) return <div>Loading...</div>;
+//   if (error) return <div>Error: {error}</div>;
+
+//   const handleUpdateClick = (task) => {
+//     setSelectedTask(task);
+//     setStatus(task.status);
+//     setModalVisible(true);
+//   };
+
+//   const handleCommentClick = async (project) => {
+//     setSelectedProject(project);
+//     setOffcanvasVisible(true);
+//     fetchComments(project.id);  // Fetch comments based on project ID
+//   };
+
+//   const fetchComments = async (projectId) => {
+//     try {
+//       const response = await Axios.get(`/task/${projectId}/comments/`);
+//       setComments(response.data.comments);  // Assuming response.data contains the list of comments
+//     } catch (err) {
+//       console.error("Error fetching comments:", err);
+//       swal("Error!", "Could not fetch comments.", "error");
+//     }
+//   };
+
+//   const handlePostComment = async (e) => {
+//     e.preventDefault();
+//     if (!newComment) return;
+
+//     try {
+//       const res = await Axios.post(`/project/${selectedProject.id}/comment/`, { content: newComment });
+//       const { message } = res.data;
+//       swal("Success!", message, "success");
+//       setNewComment(''); // Clear comment input
+//       fetchComments(selectedProject.id); // Refresh comments
+//     } catch (err) {
+//       console.error("Error posting comment:", err);
+//       swal("Error!", "Error posting comment.", "error");
+//     }
+//   };
+
+//   return (
+//     <div>
+//       <Container className="dashboard-container py-4 mt-2 rounded">
+//         {/* Projects Section */}
+//         <Row>
+//           <Col className="text">
+//             <h1 style={{ backgroundColor: "#f3f3f3" }} className="section-title h2 p-2">Project Details</h1>
+//             <hr className="text-dark" />
+//           </Col>
+//         </Row>
+//         <Row>
+//           <Col xs={12} className="bg-white p-3 rounded shadow-sm">
+//             <Table responsive="sm" className="table table-hover table-border table-hover p-3 mb-5 bg-white rounded">
+//               <thead>
+//                 <tr>
+//                   <th>N/o</th>
+//                   <th>Project Name</th>
+//                   <th>Description</th>
+//                   <th>Start Date</th>
+//                   <th>End Date</th>
+//                   <th>Assigned Users</th>
+//                   <th>Action</th>
+//                 </tr>
+//               </thead>
+//               <tbody>
+//                 {data.projects.map((project, index) => (
+//                   <tr key={project.id}>
+//                     <td>{index + 1}</td>
+//                     <td>{project.name}</td>
+//                     <td>{project.description}</td>
+//                     <td>{project.start_date}</td>
+//                     <td>{project.end_date}</td>
+//                     <td>{project.assigned_users.map(user => user.username).join(', ')}</td>
+//                     <td>
+//                       <Button
+//                         style={{ backgroundColor: "#dcdcdc", color: "black" }}
+//                         onClick={() => handleCommentClick(project)}
+//                       >
+//                         Comment
+//                       </Button>
+//                     </td>
+//                   </tr>
+//                 ))}
+//               </tbody>
+//             </Table>
+//           </Col>
+//         </Row>
+
+//         {/* Offcanvas for Comments */}
+//         <Offcanvas show={isOffcanvasVisible} onHide={() => setOffcanvasVisible(false)} placement="end">
+//           <Offcanvas.Header closeButton>
+//             <Offcanvas.Title>Comments for {selectedProject?.name}</Offcanvas.Title>
+//           </Offcanvas.Header>
+//           <Offcanvas.Body>
+//             <Form onSubmit={handlePostComment}>
+//               <Form.Group controlId="formNewComment">
+//                 <Form.Label>Add a Comment</Form.Label>
+//                 <Form.Control
+//                   as="textarea"
+//                   rows={3}
+//                   value={newComment}
+//                   onChange={(e) => setNewComment(e.target.value)}
+//                   placeholder="Write your comment here..."
+//                 />
+//               </Form.Group>
+//               <Button variant="primary" type="submit" className="mt-2">
+//                 Post Comment
+//               </Button>
+//             </Form>
+//             <hr />
+//             <h5>Comments</h5>
+//             {comments.length > 0 ? (
+//               <ul className="list-unstyled">
+//                 {comments.map((comment) => (
+//                   <li key={comment.id} className="mb-2">
+//                     <strong>{comment.user}</strong>: {comment.content}
+//                     <br />
+//                     <small className="text-muted">{new Date(comment.timestamp).toLocaleString()}</small>
+//                   </li>
+//                 ))}
+//               </ul>
+//             ) : (
+//               <p>No comments available.</p>
+//             )}
+//           </Offcanvas.Body>
+//         </Offcanvas>
+//       </Container>
+//     </div>
+//   );
+// };
+
+// export default AdminDashboard;

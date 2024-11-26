@@ -206,7 +206,6 @@ import { FaEnvelope, FaBriefcase, FaTransgender, FaPhone } from 'react-icons/fa'
 // import { Image } from 'react-bootstrap'; // For profile image
 import { Image, Row, Col } from 'react-bootstrap';
 import "../App.css";
-
 import { Link, useNavigate } from 'react-router-dom';
 import Axios from '../Axios/Axios'
 import Swal from 'sweetalert2';
@@ -214,7 +213,7 @@ import { BarChart } from '@mui/x-charts/BarChart';
 import CategoryChart from './CategoryChart';
 import CategoryByChart from './CategoryByChart';
 import Weather from './Weather';
-// import toast from 'react-toastify'; // Toast notification library
+
 
 const Top = () => {
   const [show, setShow] = useState(false);
@@ -321,20 +320,21 @@ const Top = () => {
               </InputGroup>
             </Form>
 
-            <div className="text-muted px-4 py-1 text-white">
+            {/* <div className="text-muted px-4 py-1 text-white">
               <button className="px-2" style={{ fontSize: "18px", marginRight: "20px", borderRadius: "0%", backgroundColor: "lightblue", color: "black", border: "none" }}>
-                {/* {currentTime} */}
+                {currentTime}
+              
               </button>
-            </div>
+            </div> */}
 
             <div className="d-flex align-items-center">
-              <Button variant="outline-info" className="me-3">
-                <FaBell />
+              <Button variant="" className="me-0">
+                <FaBell className='fs-5' />
               </Button>
 
               <Dropdown align="end">
-                <Dropdown.Toggle variant="outline-secondary" id="dropdown-profile">
-                  <FaUserCircle size={24} />
+                <Dropdown.Toggle variant="" id="dropdown-profile">
+                  <FaUserCircle className='fs-4' />
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu className="shadow mt-2">

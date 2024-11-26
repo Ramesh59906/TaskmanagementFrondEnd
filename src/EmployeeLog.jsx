@@ -16,7 +16,7 @@ import Chatbox from './Component/ChatBox';
 import AdminDashboard from './Component/AdminDashboard';
 import Swal from 'sweetalert2';
 import Axios from '../src/Axios/Axios'
-
+import logo from "./assets/Google icon.png"
 
 function OffcanvasExample() {
   const currentDate = new Date();
@@ -155,9 +155,9 @@ function OffcanvasExample() {
     <>
       {[false].map((expand) => (
         <Navbar key={expand} expand={expand} className=" pt-2 mb-3">
-          <Container>
+          <Container fluid>
             <Navbar.Toggle style={{ border: "none" }} aria-controls={`offcanvasNavbar-expand-${expand}`} />
-            <Navbar.Brand className="ms-2 fs-2" style={{ fontWeight: "800" }}>
+            <Navbar.Brand className="ms-2 fs-2" style={{ fontWeight: "200" }}>
               Kite<span className="fs-1 text-info">C</span>areer
             </Navbar.Brand>
 
@@ -168,8 +168,8 @@ function OffcanvasExample() {
             >
               <Offcanvas.Header closeButton>
                 <Offcanvas.Title id={`offcanvasNavbarLabel-expand-${expand}`}>
-                  <Navbar.Brand className="ms-2 fs-2" style={{ fontWeight: "800" }}>
-                    Kite<span className="fs-1 text-info">C</span>areer
+                  <Navbar.Brand className="ms-2 fs-3" style={{fontSize:"14px",fontWeight:"100"}}>
+                    Pr<span className="text-dark">o</span>file
                   </Navbar.Brand>
                 </Offcanvas.Title>
               </Offcanvas.Header>
@@ -177,17 +177,17 @@ function OffcanvasExample() {
                 <Nav className="justify-content-around flex-grow-1">
                   {/* Add profile logo here */}
                   <div className="d-flex justify-content-center mb-3">
-                    {/* <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTzjYaNDT_7xf4e_QTBMl7DaGD5ESkYc5O8FLl8qIZRi3_vmPXS6J_f3nBGOtaRyDRpoTg&usqp=CAU" alt="Profile Logo" className="rounded-circle" style={{ width: '170px', height: '160px' }} /> */}
+                    <img src={logo} alt="Profile Logo" className="rounded-circle" style={{ width: '170px', height: '160px' }} />
                   </div>
 
-                  <Nav.Link  onClick={handleShow} className="text-dark fs-5 px-4 mt-2">
-                    <FaUser className="me-2 text-info" /> View Profile
+                  <Nav.Link  onClick={handleShow} className="text-dark  px-4 mt-2" style={{fontSize:"14px",fontWeight:"100"}}>
+                    <FaUser className="me-2 text-dark" /> View Profile
                   </Nav.Link>
-                  <Nav.Link href="#accountSetting" className="text-dark fs-5 px-4 mt-2">
-                    <FaExchangeAlt className="me-2 text-info" /> Account Settings
+                  <Nav.Link href="#accountSetting" className="text-dark px-4 mt-2" style={{fontSize:"14px",fontWeight:"100"}}>
+                    <FaExchangeAlt className="me-2 text-dark"  /> Account Settings
                   </Nav.Link>
-                  <Nav.Link href="#switchAccount" className="text-dark fs-5 px-4 mt-2">
-                    <FontAwesomeIcon icon={faCog} className="me-2 text-info" /> Switch Account
+                  <Nav.Link href="#switchAccount" className="text-dark px-4 mt-2" style={{fontSize:"14px",fontWeight:"100"}}>
+                    <FontAwesomeIcon icon={faCog} className="me-2 text-dark"  /> Switch Account
                   </Nav.Link>
                   {/* <Nav.Link  className="text-dark fs-5 px-4 mt-2">
                     <FontAwesomeIcon icon={faSignOutAlt} className="me-2 text-info" /> Logout
@@ -195,15 +195,15 @@ function OffcanvasExample() {
                     <Nav.Link
                 to="/login"
               className="text-dark fs-5 px-4 mt-2"
-                style={{ textDecoration: "none", fontSize: "18px" }}
+                style={{ textDecoration: "none", fontSize: "14px" }}
                 onClick={() => {
                   // Clear localStorage values for username and email
                   localStorage.removeItem('username');
                   localStorage.removeItem('email');
                 }}
               >
-                <Dropdown.Item onClick={Logout}   className="mt-1">
-                  <FaSignOutAlt className="me-2 text-info" /> Logout
+                <Dropdown.Item onClick={Logout}   className="" style={{fontSize:"14px",fontWeight:"100"}}>
+                  <FaSignOutAlt className="me-2 text-dark"  /> Logout
                 </Dropdown.Item>
               </Nav.Link>
                 </Nav>
@@ -214,7 +214,7 @@ function OffcanvasExample() {
         </Navbar>
       ))}
 
-      <Container className=''>
+      <Container fluid className=''>
         <Row className="align-items-center">
           <Col xs={12} md={6} className="text-md-start text-center mb-3 mb-md-0">
             <h1 className="text-info"> Hi {username}!</h1>
